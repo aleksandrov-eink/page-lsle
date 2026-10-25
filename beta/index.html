@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>页屿 PageIsle · 刷机与功能介绍</title>
+<meta name="description" content="页屿 PageIsle 墨水屏阅读器固件：浏览器一键刷机（USB 有线），支持坚果云同步、Markdown 阅读、Obsidian 互通与手势配置。">
+<meta name="theme-color" content="#f6f2e7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div style="background:#2e5a45;color:#f6f2e7;padding:10px 16px;font-size:14px;text-align:center">内测版固件页面 · 页屿系统 1.13.0（2026-10-25） · <a style="color:#e8dcc0" href="../">回到正式版</a></div>
+
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">页屿 <span>PageIsle</span></div>
+    <nav>
+      <a href="#flash">刷机</a>
+      <a href="#features">功能介绍</a>
+      <a href="#downloads">下载</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="top">
+    <p class="eyebrow">E-INK READER · RDP-G01-W · ESP32-S3</p>
+    <h1>页屿 <em>PageIsle</em></h1>
+    <p class="lead">为 684×1216 电子墨水屏打磨的阅读系统：坚果云同步、Markdown 排版阅读、Obsidian 互通、可配置手势。用一根 USB 线，在浏览器里直接刷入。</p>
+    <ul class="chips">
+      <li>坚果云同步</li><li>Markdown 阅读</li><li>Obsidian 互通</li><li>手势配置</li>
+      <li>自适应横竖屏</li><li>四档翻页</li><li>字级划线</li><li>八个特色功能</li>
+    </ul>
+  </section>
+
+  <section class="flash" id="flash">
+    <div class="card">
+      <h2>浏览器一键刷机（USB 有线）</h2>
+      <p class="sub">用 <b>电脑版 Chrome / Edge</b>，数据线连接设备即可。无需安装驱动工具，不占用本地文件。</p>
+
+      <div class="warn">
+        <b class="warn-title">⚠ 刷机确认框里不要勾选 “Erase device”</b>
+        点刷机后会出现一个英文确认框（Erase device）：<b>保持不勾选</b>，直接点 <b>Next</b>。
+        勾选它会整片擦除 Flash——设置、阅读记录、阅读统计全部清零（这一版早期页面就踩过这个坑）。
+      </div>
+
+      <label class="ack">
+        <input type="checkbox" id="erase-ack">
+        <span>我已知晓：刷机确认框里保持 <b>不勾选 Erase device</b>，直接点 Next。</span>
+      </label>
+
+      <esp-web-install-button manifest="firmware/manifest.json">
+        <button class="flash-btn" slot="activate" id="flash-btn" disabled>连接设备并刷机</button>
+        <span class="unsupported" slot="unsupported">当前浏览器不支持 Web Serial，请改用电脑版 Chrome 或 Edge（89 及以上）。</span>
+        <span class="not-allowed" slot="not-allowed">页面必须通过 HTTPS 或 localhost 打开才能刷机。</span>
+      </esp-web-install-button>
+
+      <p class="hint">刷入后设备会自动重启。若没有自动重启，长按电源键一次即可。请先关闭占用该串口的程序（如 <code>idf.py monitor</code>、串口助手）。</p>
+      <ul class="req">
+        <li>电脑版 <b>Chrome / Edge 89+</b>（不支持 Firefox / Safari / 手机浏览器）</li>
+        <li>一根<b>能传数据</b>的 USB 线（只供电的线不行）</li>
+        <li>页面地址是 <b>HTTPS</b> 或 <b>localhost</b>（GitHub Pages 默认满足）</li>
+        <li>设备：RDP-G01-W · ESP32-S3 · 16 MB flash</li>
+      </ul>
+      <p class="hint">按上一条操作（不勾 Erase device）时，刷机只写引导程序、分区表与应用镜像，
+        <b>设置与阅读记录保留</b>；TF 卡上的书、划线、字体、壁纸也不受影响。</p>
+      <p class="hint">日常升级其实更推荐下面的 <b>TF 卡本地升级</b>：完全不擦除，风险最低。</p>
+    </div>
+
+    <div class="card">
+      <h2>三步刷完</h2>
+      <ol class="steps">
+        <li><strong>连接设备</strong>：用能传数据的 USB 线接到电脑，设备保持开机即可（不用按 BOOT）。</li>
+        <li><strong>点按钮选串口</strong>：选设备对应的那一项（常见名字带 <code>USB JTAG</code> 或 <code>USB Serial</code>）；
+          之后出现的 <b>Erase device</b> 确认框里<b>不要勾选</b>，直接点 <b>Next</b>。</li>
+        <li><strong>等进度走完</strong>：写入约 3.6 MB；完成后设备重启，进入锁屏界面。之后可在「设置 → 升级和恢复 → 更新说明」里看到本版条目。</li>
+      </ol>
+
+      <h2 style="margin-top:26px">固件信息</h2>
+      <table class="meta">
+        <tr><th>系统名</th><td>页屿 PageIsle</td></tr>
+        <tr><th>版本号</th><td>0.3.3-rc99</td></tr>
+        <tr><th>应用镜像</th><td>4,042,992 字节</td></tr>
+        <tr><th>ota_0 余量</th><td>151,312 字节（13%）</td></tr>
+        <tr><th>sha256</th><td><code>437708a02a5dfc9a2ba7926ca80a297f9a5825c7de90bb881f1ae736abaf40d0</code></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>功能介绍</h2>
+    <p class="section-lead">这一版在官方 rc99 之上新增了 <b>四组能力</b>：坚果云同步、Markdown 阅读、
+      Obsidian 互通、手势配置；此前逐步打磨的自适应方向、四档翻页、字级划线等功能也都在这台机器上。
+      下面按「本次新增 → 本固件此前新增 → 官方原有」排列。</p>
+
+    <h3 class="feat-group"><span>本次新增</span> 四个模块</h3>
+    <div class="cards">
+
+      <article class="promo-card">
+        <div class="promo-no">01</div>
+        <h3>坚果云同步</h3>
+        <p class="promo-sub">WebDAV · 电脑手机 → 设备</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-title">云同步 / Obsidian</div>
+            <div class="m-row"><span class="m-dot"></span><span class="m-line" style="width:52%"></span><span class="m-meta">12 KB</span></div>
+            <div class="m-row"><span class="m-dot"></span><span class="m-line" style="width:64%"></span><span class="m-meta">8 KB</span></div>
+            <div class="m-row"><span class="m-dot"></span><span class="m-line" style="width:44%"></span><span class="m-meta">36 KB</span></div>
+            <div class="m-progress"><span></span></div>
+            <div class="m-meta2">正在下载 · 42% · 可取消</div>
+          </div>
+          <p class="promo-cap">设置 → 连接与时间 → 坚果云同步</p>
+        </div>
+        <ul class="promo-list">
+          <li>账号 + 应用密码 + 同步文件夹；「测试连接」先校时再认证。</li>
+          <li>可逐层进子目录，只列 <code>.md / .txt / .epub</code>，带大小与修改时间。</li>
+          <li>下载带进度、可取消、重名先确认；落到书架「云同步」分类，下完自动上书架。</li>
+          <li><b>同步阅读进度</b>：配置页新增整页入口，把逐书进度写入同步文件夹，换设备点一次即可合并续读；两边都改过的书保留本机进度。</li>
+        </ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">02</div>
+        <h3>Markdown 阅读</h3>
+        <p class="promo-sub">离线排版 · 标题 / 强调 / 表格</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-h1"></div>
+            <div class="m-line" style="width:92%"></div>
+            <div class="m-line" style="width:100%"></div>
+            <div class="m-line" style="width:86%"></div>
+            <div class="m-table">
+              <span class="m-cell"></span><span class="m-cell"></span><span class="m-cell"></span>
+              <span class="m-cell"></span><span class="m-cell"></span><span class="m-cell"></span>
+            </div>
+            <div class="m-meta2">粗体 · <i>斜体</i> · <span class="m-hl">高亮</span></div>
+          </div>
+          <p class="promo-cap">书架 / 文件页直接打开 .md</p>
+        </div>
+        <ul class="promo-list">
+          <li>H1–H6 分级字号、列表、引用、代码块、分隔线；粗体 / 斜体 / 高亮 / 行内代码。</li>
+          <li>标准管道表格：按正文宽 / 字号 / 字距算列宽，单元格内折行、像素级对齐。</li>
+          <li>标题自动生成目录；改字号 / 字距 / 旋转后自动重新解析当前章。</li>
+        </ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">03</div>
+        <h3>Obsidian 互通</h3>
+        <p class="promo-sub">vault 拉取 + 笔记回传</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-title">Obsidian vault</div>
+            <div class="m-line" style="width:70%"></div>
+            <div class="m-line" style="width:52%"></div>
+            <div class="m-arrow">↓ 坚果云 WebDAV ↓</div>
+            <div class="m-title">页屿 · 划线笔记</div>
+            <div class="m-line" style="width:64%"></div>
+            <div class="m-line" style="width:46%"></div>
+          </div>
+          <p class="promo-cap">拉取阅读 / 导出笔记回 vault</p>
+        </div>
+        <ul class="promo-list">
+          <li>浏览 vault 目录，把 <code>.md</code> 下载到设备阅读。</li>
+          <li>「导出笔记」把划线 / 笔记 / 标签生成 front matter + 引用摘录的 Markdown，PUT 回同步文件夹。</li>
+          <li>配合 Obsidian 插件就是「笔记发到坚果云 → 设备下载」的完整链路；不做官方 Sync 私有协议。</li>
+        </ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">04</div>
+        <h3>手势配置</h3>
+        <p class="promo-sub">7 个槽位 × 9 种动作 + 4 套预设</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-chiprow">
+              <span class="m-chip">双击</span><span class="m-chip">长按</span><span class="m-chip">上滑</span>
+              <span class="m-chip">下滑</span><span class="m-chip">左滑</span><span class="m-chip">右滑</span>
+              <span class="m-chip">双指</span>
+            </div>
+            <div class="m-chiprow">
+              <span class="m-chip on">经典</span><span class="m-chip">上下翻页</span><span class="m-chip">单手</span><span class="m-chip">极简</span>
+            </div>
+            <div class="m-meta2">动作：翻页 / 工具栏 / 全屏 / 目录 / 划线 / 刷新 / 主页</div>
+          </div>
+          <p class="promo-cap">阅读工具栏 → 按键控制 → 手势设置</p>
+        </div>
+        <ul class="promo-list">
+          <li>双击 / 长按 / 四向滑动 / 双指轻点逐个绑定动作，逐槽位存 NVS。</li>
+          <li>四套预设一键套用，也能全自定义；「经典」与旧版行为逐格一致。</li>
+          <li>长按的「划线 / 目录」开关已挪到工具栏「划线」页右上角。</li>
+        </ul>
+      </article>
+
+    </div>
+
+    <h3 class="feat-group"><span>本固件此前新增</span> 相对官方 rc99 的 99 项改动精选</h3>
+    <div class="cards">
+
+      <article class="promo-card">
+        <div class="promo-no">05</div>
+        <h3>自适应阅读方向</h3>
+        <p class="promo-sub">加速度计判定，横竖屏自动切</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-rotate"><span class="m-dev p"></span><span class="m-arrow2">⇄</span><span class="m-dev l"></span></div>
+            <div class="m-meta2">竖屏 / 横屏两个方向，面板与菜单全部横屏可用</div>
+          </div>
+          <p class="promo-cap">原「竖排」开关替换为自适应方向</p>
+        </div>
+        <ul class="promo-list"><li>阅读设置里开关；转向后回到原来那一页，180° 也正确。</li><li><b>横屏阅读补齐 chrome</b>：顶部状态带（时钟 / 签名 / WiFi / 蓝牙 / 电量）、非全屏时的题头带（返回 / 书名 / 收藏）与底部章节名 + 页码 / 全书% + 进度条；正文带自动内缩。</li><li>横屏每分钟只刷状态带，不再整屏闪；横竖屏切换按文字位置回到同一段页首。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">06</div>
+        <h3>四档翻页效果</h3>
+        <p class="promo-sub">普通 / 水波纹 × 快刷 / 高清</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-chiprow"><span class="m-chip">普通·快刷</span><span class="m-chip">普通·高清</span></div>
+            <div class="m-chiprow"><span class="m-chip on">水波纹·快刷</span><span class="m-chip">水波纹·高清</span></div>
+            <div class="m-meta2">水波纹·高清 = 单次快速扫描推屏，干净不闪</div>
+          </div>
+          <p class="promo-cap">阅读设置 → 翻页效果</p>
+        </div>
+        <ul class="promo-list"><li><b>普通·快刷 = rc100「速读黑白」</b>：纯文字页把正文阈值成纯黑白，原厂完整 DU 一次推屏，翻页更快更直接。</li><li><b>白天清残影按 rc100</b>：普通翻页只走校准灰阶的差分 GL16，不再叠加整幅补扫；水波纹两档名称与选择不变。</li><li><b>反色模式保留原有补黑</b>与相关路径（本次只换白天算法，按用户要求）。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">07</div>
+        <h3>字级划线 · 笔记 · 标签</h3>
+        <p class="promo-sub">长按选字，前滑增长后滑收回</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-line" style="width:94%"></div>
+            <div class="m-line hi" style="width:70%"></div>
+            <div class="m-line" style="width:88%"></div>
+            <div class="m-chiprow"><span class="m-chip">重要</span><span class="m-chip">待读</span><span class="m-chip">疑问</span><span class="m-chip">✎ 笔记</span></div>
+          </div>
+          <p class="promo-cap">工具栏「划线」列表可跳转 / 删除 / 写笔记</p>
+        </div>
+        <ul class="promo-list"><li>跨行跨段自动接上；改字号 / 行距 / 繁简不漂移。</li><li>长按已划线句子可直接删除整段。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">08</div>
+        <h3>繁简两态 + 自定义字体</h3>
+        <p class="promo-sub">TC 字形 · 按词选形 · 最多 50 款</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-aa">Aa</div>
+            <div class="m-chiprow"><span class="m-chip on">简</span><span class="m-chip">繁</span><span class="m-chip">50 款字体</span></div>
+            <div class="m-meta2">发→髮/發 · 面→麵/面 · 干→乾/幹/干</div>
+          </div>
+          <p class="promo-cap">设置 → 显示 → 中文显示 / 系统字体</p>
+        </div>
+        <ul class="promo-list"><li>繁简切换只改显示，不动文件、进度与书签。</li><li>自定义系统字体应用到书架、键盘、设置子页等全局界面。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">09</div>
+        <h3>反色三态</h3>
+        <p class="promo-sub">关闭 / 开启 / 夜间自动 21:00–07:00</p>
+        <div class="promo-shot">
+          <div class="mock split">
+            <div class="m-half">日</div><div class="m-half dark">☾</div>
+            <div class="m-meta2">封面与插图保留原始灰阶</div>
+          </div>
+          <p class="promo-cap">设置 → 显示 → 反色模式</p>
+        </div>
+        <ul class="promo-list"><li>夜间自动按时间边界切换；锁屏壁纸与关机画面保持正常灰阶。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">10</div>
+        <h3>极简时钟锁屏</h3>
+        <p class="promo-sub">两行时分 · 分钟局刷 · 20 分钟全刷</p>
+        <div class="promo-shot">
+          <div class="mock center">
+            <div class="m-time">21:36</div>
+            <div class="m-meta2">10 月 25 日 · 周六</div>
+            <div class="m-line" style="width:58%;margin:8px auto 0"></div>
+          </div>
+          <p class="promo-cap">锁屏样式 → 极简时钟（支持横屏）</p>
+        </div>
+        <ul class="promo-list"><li>不依赖卡上资源；锁屏期间只保留 PMU 时钟与屏幕供电。</li><li>双击解锁，可设置单击 / 双击。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">11</div>
+        <h3>五栏导航 + 八个特色功能</h3>
+        <p class="promo-sub">首页 / 特色 / 书架 / 文件 / 设置</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-tabs"><span>首页</span><span>特色</span><span class="on">书架</span><span>文件</span><span>设置</span></div>
+            <div class="m-meta2">番茄时钟 · 周闹钟 · 待办 · 做个决定 · 2048 · 贪吃蛇 · 俄罗斯方块 · 五子棋</div>
+          </div>
+          <p class="promo-cap">特色功能 2×4 卡片入口，长按中键返回</p>
+        </div>
+        <ul class="promo-list"><li>四个实用页有底栏，四个游戏页整块留白。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">12</div>
+        <h3>首页模块与阅读统计</h3>
+        <p class="promo-sub">日历 / 待办 / 本月阅读 · 热力图</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-cal">日 一 二 三 四 五 六 · · · · · · ·</div>
+            <div class="m-meta2">合计 6 小时 · 记录 12 天 · 最长连续 5 天</div>
+            <div class="m-chiprow"><span class="m-chip">日历</span><span class="m-chip on">本月统计</span><span class="m-chip">待办</span></div>
+          </div>
+          <p class="promo-cap">右下模块长按循环切换，双击锁定</p>
+        </div>
+        <ul class="promo-list"><li>阅读热力图按当天时长上灰阶，保留近 30 天趋势。</li><li>阅读统计支持章节内自由跳转与「返回前阅读位置」。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">13</div>
+        <h3>书架搜索与加速</h3>
+        <p class="promo-sub">中文 / 拼音 / 首字母 · 封面逐行出现</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-search">搜索：周记 / zhouji / zj</div>
+            <div class="m-books"><span></span><span></span><span></span><span></span><span></span><span></span></div>
+          </div>
+          <p class="promo-cap">按当前二级书架过滤，最近阅读优先</p>
+        </div>
+        <ul class="promo-list"><li>封面解码好一行显示一行，不再等整页。</li><li>空闲时预取相邻页封面，点书先显示「正在打开」。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">14</div>
+        <h3>阅读体验细节</h3>
+        <p class="promo-sub">连续字号 · 行距 100% · 章节跳转</p>
+        <div class="promo-shot">
+          <div class="mock">
+            <div class="m-slider"><span></span></div>
+            <div class="m-meta2">字号 1px 步进 · 行距 100%–150% · 字距 −15…+15px</div>
+            <div class="m-row"><span class="m-line" style="width:40%"></span><span class="m-meta">42%</span></div>
+            <div class="m-row"><span class="m-line" style="width:32%"></span><span class="m-meta">26 分钟</span></div>
+          </div>
+          <p class="promo-cap">阅读设置 / 阅读统计</p>
+        </div>
+        <ul class="promo-list"><li><b>阅读背景 PNG 可预览了</b>：隔行 PNG 逐行散射解码，直接写 4bpp 背景平面、省掉 831,744 B 临时内存；失败原因按格式 / 尺寸 / 内存 / 损坏分别提示。</li><li>字级划线、首行缩进微调、阅读线、插图预读一并在内。</li><li><b>白天清残影整体改用 rc100 算法</b>：普通翻页差分 GL16、取消额外补扫，靠周期全刷收尾；反色模式保留原有补黑——白天与反色不再共用一套补白流程。</li><li><b>竖排（从右到左）开关</b>回到阅读设置：恢复 rc100 竖排排版，且与自适应方向不再互斥——横屏也能正常竖排，转屏自动重排整章；<b>书内字体反复回退</b>时弹出「立即重启 / 暂不重启」，重启前自动保存进度。</li><li><b>翻页补白恢复</b>：rc100 差分 GL16 翻页之后紧跟一遍纯白底补扫，与翻页同一次 present 完成，只推纯白底、不动字形；反色模式仍是补黑。</li><li><b>阅读背景</b>进了阅读设置，一页十个功能排满：三级菜单（阅读背景 → 目录/子目录 → 预览）选图，并套用透明书封的自动去白——白底变页面白、正文压图更清楚，纯白像素直接跳过绘制。</li><li><b>本章跳转升级</b>：阅读统计 → 章节跳转改成「草稿页码 + 数字键盘」——−/+ 微调草稿、点按数字直接输入页码，按「跳转」才移动；跳转后 7 秒内正文上方出现「返回跳转前」，按文字锚点回到原处，重排后也不丢。</li><li><b>阅读设置恢复原尺寸</b>：面板整体上移，卡片回到 98px 高 / 104px 间距，十个功能一页排满——竖屏五行双列、横屏五列两行（横屏卡片也恢复 208px 高），长标题/图片名按格宽自动收字。</li><li><b>修复阅读背景 PNG 无法导入/预览</b>：PNG 解码前没有回到文件起点——只读了文件头就直接解码，libpng 从 IHDR 数据开始找签名，所有 PNG 背景都被判「解码失败」；现在解码前强制回绕到 0，PNG 与 JPG 背景都能正常预览与使用。</li><li><b>水波纹·高清改用 rc100 翻页抗锯齿算法</b>：同一条揭页引擎 + reader 文字灰阶波形（不再用我方自定义的 main 灰阶表），与「水波纹·快刷」只差节拍（高清默认 12ms/拍、快刷 11.09ms/拍）；其后仍追加纯白底补扫。</li><li><b>新增插图缩放（rc100 版）</b>：双击整页插图定点放大 2 倍、再双击还原；双击正文插图进入 2 倍缩放视图，再双击退出；缩放中双指捏合 1–4 倍、单指拖动平移，松手整屏灰阶定稿消残影；翻页/切面板/锁屏/旋转自动复位并释放 1bpp 帧缓冲（本期只支持竖屏）。插图页的单击会延后 340ms 以区分双击，属必要取舍。</li><li><b>时钟样式预览缓存（rc100 版）</b>：主页「时钟样式」浏览页把每种静态样式固定 10:10:30 的画面缓存成 5 槽 LRU（2 实时 + 3 预览），空闲时预绘左右邻近样式，切换样式直接贴缓存；字体/字号/对比度/繁简变化与恢复配置后自动失效重建。猫眼/Kehai 等动画样式保持实时绘制。浏览页 PSRAM 池由 231KB 扩到 763KB，余量不足或分配失败自动退回实时绘制。</li><li>修复单击开机 / 单击解锁按了还要再按、连续 DU 失败丢相位、票根锁屏纯白被二次抖动成灰点。</li><li><b>本版流畅性满配</b>：全组件 -O3＋热点循环展开（字体/排版/绘制/抖动/SD 读取/JPEG·PNG 解码），字形缓存 1.5 MB，两页预渲染常开，热点日志静音，指令缓存 32 KB——把约 270 KB 剩余空间全部换成速度，镜像 4,042,992 B，ota_0 仍留 147 KB 余量。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">15</div>
+        <h3>启动画面统一 + 固件瘦身</h3>
+        <p class="promo-sub">小锁界面 · 4,060,368 → 4,042,992 字节</p>
+        <div class="promo-shot">
+          <div class="mock center">
+            <div class="m-lock">🔒</div>
+            <div class="m-meta2">冷启动与所有深睡唤醒统一显示小锁</div>
+            <div class="m-meta2">ota_0 余量 5%（151,312 字节）</div>
+          </div>
+          <p class="promo-cap">移除 415,872 字节的内嵌「准备资源」开机图</p>
+        </div>
+        <ul class="promo-list"><li>开机画面更统一，省下的空间留给功能与毛边。</li><li>锁屏缓存与透明书封缓存升级为 FAT 安全替换（先 .bak 备份、失败回滚），锁屏只在真实锁图成功显示后写缓存；联网 OTA 开启交叉签名证书校验。</li><li><b>透明书封「能选不能预览」已修</b>：预览改用目标框大小的小块缓存并复用（路径+大小+时间），不再需要整屏画布与 2.4 MB 以上空闲内存；来回切换不重复解码。</li><li><b>SD 卡拔卡自动恢复</b>：后台只读 CMD13 巡检、拔卡 400ms/3 次防抖，掉线后按 1/3/10/30 秒退避自动重挂；重挂前先停封面/头像/云同步与 SD 书籍句柄，挂载交接期间不再打开旧卡文件。</li><li><b>深睡唤醒不再等 TF 卡</b>（rc100 S8）：立即尝试恢复缓存帧、只恢复前后帧不重推屏，面板保留深睡前原画；卡还没就绪时最多给 500ms 窗口，之后按「清白+锁屏兜底」继续开机；带锁屏密码的开机等待从 3 秒压到 1 秒。</li></ul>
+      </article>
+
+      <article class="promo-card">
+        <div class="promo-no">16</div>
+        <h3>系统名：页屿 PageIsle</h3>
+        <p class="promo-sub">固件版本与分区表仍是 0.3.3-rc99</p>
+        <div class="promo-shot">
+          <div class="mock center">
+            <div class="m-brand">页屿 <em>PageIsle</em></div>
+            <div class="m-meta2">设备名称默认值、更新说明、关于文案统一</div>
+          </div>
+          <p class="promo-cap">对外品牌更名，包名与 OTA 体系不变</p>
+        </div>
+        <ul class="promo-list"><li>便于和上游 kiikoread 区分，升级路径不受影响。</li></ul>
+      </article>
+
+    </div>
+
+    <h3 class="feat-group"><span>官方原有</span> 这些能力来自上游 rc99</h3>
+    <ul class="chips">
+      <li>TXT / EPUB 阅读</li><li>目录与书签</li><li>字体大小与字重</li>
+      <li>WiFi 传书 / 热点传书</li><li>USB 读卡</li><li>OTA 升级</li>
+      <li>锁屏 PIN</li><li>蓝牙翻页器</li><li>待机 / 深睡</li>
+    </ul>
+
+    <div class="gallery">
+      <img src="assets/fun-00-header.png" alt="页屿 PageIsle 头图">
+      <img src="assets/fun-01-added.png" alt="新增功能清单">
+      <img src="assets/fun-02-optimized.png" alt="优化清单">
+      <img src="assets/fun-03-removed.png" alt="删去内容清单">
+    </div>
+  </section>
+
+  <section id="faq">
+    <h2>常见问题</h2>
+    <details>
+      <summary>点按钮没有反应 / 提示不支持</summary>
+      <p>Web Serial 只在电脑版 Chrome、Edge（89+）以及 localhost / HTTPS 页面可用；Firefox、Safari、微信内置浏览器、手机浏览器都不支持。请把页面放在 https 地址（例如 GitHub Pages）或本机 <code>python -m http.server</code> 的 localhost 上打开。</p>
+    </details>
+    <details>
+      <summary>串口列表里找不到设备</summary>
+      <p>先在系统设备管理器里确认能看到 <code>USB JTAG/serial debug unit</code>（或 COM 口）；换一根能传数据的 USB 线；确认设备已开机。Windows 上个别机器需要允许浏览器访问串口设备。</p>
+    </details>
+    <details>
+      <summary>刷机会不会清空我的书和设置？</summary>
+      <p>按正常流程不会。刷写只覆盖引导程序、分区表、应用镜像和 OTA 元数据；书架文件在 TF 卡上，设置与阅读记录在 NVS 数据分区，都不会被动到。<b>唯一会清空的情况</b>是在 <code>Erase device</code> 确认框里勾选了擦除——那会整片擦掉 Flash。</p>
+    </details>
+    <details>
+      <summary>已经不小心勾了 Erase device，记录丢了怎么办？</summary>
+      <p><b>能恢复的</b>：如果你之前在 设置 → 升级和恢复 → 保存与恢复 里保存过配置到 TF 卡（文件 <code>Pico-settings.backup</code> 在 TF 卡根目录），刷完后进同一个页面点「从 TF 卡恢复配置」，设置与阅读记录会回来。<br>
+      <b>本来就没丢的</b>：TF 卡上的书、划线（<code>.readpico</code>）、字体、壁纸都还在，重新选一下字体/壁纸就能恢复外观。<br>
+      <b>找不回的</b>：没有备份时，NVS 里的阅读进度、阅读时长统计、锁屏密码、Wi-Fi 密码、手势与按键映射会被清零，只能重设；另外内置存储 <code>/flash/books</code> 里的书也会随内部 FAT 分区一起被擦掉（TF 卡上的书不受影响）。</p>
+    </details>
+    <details>
+      <summary>提示串口被占用 / 打不开端口</summary>
+      <p>先关掉可能占用同一个串口的程序：<code>idf.py monitor</code>、串口助手、Arduino IDE 串口监视器、厂商刷机工具等，等几秒再点刷机。同一个浏览器标签页里重复刷机时，先让上一次连接断开（拔插一次数据线也可以）。</p>
+    </details>
+    <details>
+      <summary>Windows 上需要装驱动吗？</summary>
+      <p>设备是 ESP32-S3 的 USB-Serial-JTAG，Windows 10/11 会自动装好 <code>usbser</code>，一般不需要额外驱动。如果设备管理器里是黄色感叹号，重新插拔一次或换一个 USB 口（不要用只供电的集线器）。</p>
+    </details>
+    <details>
+      <summary>怎么确认刷进去了、是这一版？</summary>
+      <p>刷完开机后：设置 → 升级和恢复 → 更新说明，顶部新增了「坚果云同步 / Markdown / 手势」等条目；设置 → 连接与时间里能看到「坚果云同步」这一行。也可以对照本页的 sha256 与 TF 卡镜像校验值。</p>
+    </details>
+    <details>
+      <summary>刷到一半失败 / 断线了怎么办</summary>
+      <p>设备此时停在引导模式，重新连接再刷一次即可；重复刷同一份固件没有副作用。若设备反复重启，用 TF 卡升级方式兜底。</p>
+    </details>
+    <details>
+      <summary>怎么回退到上一版？</summary>
+      <p>和刷机一样：把上一版的 <code>.bin</code> 放 TF 卡根目录用本地升级，或用本页的刷机按钮刷入上一版镜像。分区布局没有变，回退不需要改引导程序。</p>
+    </details>
+    <details>
+      <summary>Markdown 里的图片为什么不显示？</summary>
+      <p>这一版 Markdown 只排版文字与结构，图片引用会显示成 <code>[图] alt</code> 占位；Obsidian 插件附带的 <code>attachments/</code> 目录也不会被下载。图文混排仍在 EPUB 阅读里完整支持。</p>
+    </details>
+  </section>
+
+  <section id="about">
+    <h2>关于这个页面</h2>
+    <p class="section-lead">本页是纯静态站点，可以整份放进 GitHub Pages：刷机能力来自开源的 <a href="https://github.com/esphome/esp-web-tools" target="_blank" rel="noopener">esp-web-tools</a>（Apache-2.0，本仓库内已内置，不依赖任何 CDN）。页面本身不收集任何数据，串口通信只在你的浏览器与设备之间发生。</p>
+    <p class="section-lead">固件基于上游 <b>kiikoread 0.3.3-rc99</b> 做应用层定制，分区表、引导程序、OTA 元数据布局与官方一致，未改动。固件按 Apache-2.0 发布；图标来自 Lucide（ISC）。刷机有风险，请自行确认版本与设备型号（RDP-G01-W / ESP32-S3 / 16 MB flash）。</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 4,042,992 字节 · sha256 437708a02a5dfc9a…af40d0</p>
+    <p>页面与固件由 mindreset 构建；esp-web-tools 与 esptool-js © Espressif Systems，Apache-2.0。</p>
+    <p>代码仓库：<a href="https://github.com/aleksandrov-eink/pageisle" target="_blank" rel="noopener">github.com/aleksandrov-eink/pageisle</a> · 以仓库里的固件与校验值为准。</p>
+  </div>
+</footer>
+
+<script type="module" src="web-flasher/install-button.js"></script>
+<script>
+/* 安全闸：不认识“不要勾选 Erase device”之前，刷机按钮保持禁用，避免再次误擦。 */
+(function () {
+  var ack = document.getElementById('erase-ack');
+  var btn = document.getElementById('flash-btn');
+  if (!ack || !btn) return;
+  var sync = function () { btn.disabled = !ack.checked; };
+  ack.addEventListener('change', sync);
+  sync();
+})();
+</script>
+<script>
+// 复制 sha256：右上角小按钮的替代，点哈希即可复制。
+document.querySelectorAll('code').forEach(function (el) {
+  el.style.cursor = 'copy';
+  el.title = '点击复制';
+  el.addEventListener('click', function () {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(el.textContent || '').then(function () {
+      var old = el.textContent;
+      el.textContent = '已复制';
+      setTimeout(function () { el.textContent = old; }, 900);
+    });
+  });
+});
+</script>
+</body>
+</html>
