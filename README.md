@@ -2,7 +2,7 @@
 
 这是 **页屿 PageIsle**（基于 kiikoread 0.3.3-rc99 的应用层定制固件）的刷机页源码仓库。
 
-- 在线页面：https://aleksandrov-eink.github.io/page-lsle/
+- 在线页面：https://aleksandrov-eink.github.io/pageisle/
 - 浏览器一键刷机（USB / Web Serial）：页面上的「连接设备并刷机」
 - TF 卡本地升级镜像：`firmware/Pico-update.bin`
 - 固件信息：3,644,800 字节，sha256 `2884bb731e49f245a1975bf26184dc50795192a893ecf1eac0f52bc6d7186490`
