@@ -1,0 +1,107 @@
+/* 页屿 PageIsle · 刷机站 */
+:root {
+  --paper: #f6f2e7;
+  --card: #fdfcf6;
+  --ink: #1e1c18;
+  --ink2: #625c52;
+  --ink3: #8e8679;
+  --line: #d0c8b8;
+  --green: #2e5a45;
+  --rust: #a8693e;
+  --brown: #786956;
+  --radius: 18px;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: "Noto Sans SC", "PingFang SC", "Microsoft YaHei", system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.75;
+  -webkit-font-smoothing: antialiased;
+}
+a { color: var(--green); text-decoration: none; border-bottom: 1px solid rgba(46, 90, 69, .35); }
+a:hover { border-bottom-color: var(--green); }
+code, pre { font-family: "JetBrains Mono", Consolas, "Courier New", monospace; font-size: 13px; }
+code { background: #efe9da; padding: 2px 6px; border-radius: 6px; word-break: break-all; }
+pre { background: #24211c; color: #f2ecdd; padding: 18px 20px; border-radius: 14px; overflow-x: auto; line-height: 1.6; }
+pre code { background: none; padding: 0; color: inherit; }
+.wrap { max-width: 1080px; margin: 0 auto; padding: 0 24px; }
+header.top {
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(246, 242, 231, .94);
+  backdrop-filter: blur(6px);
+  border-bottom: 1px solid var(--line);
+}
+header.top .wrap { display: flex; align-items: center; gap: 18px; height: 62px; }
+.brand { font-family: "Noto Serif SC", "Songti SC", serif; font-weight: 700; font-size: 21px; letter-spacing: .5px; }
+.brand span { color: var(--green); }
+nav { margin-left: auto; display: flex; gap: 20px; font-size: 14px; }
+nav a { border: none; color: var(--ink2); }
+nav a:hover { color: var(--green); }
+.hero { padding: 64px 0 40px; }
+.eyebrow { color: var(--ink3); font-size: 12px; letter-spacing: .28em; text-transform: uppercase; }
+h1 { font-family: "Noto Serif SC", "Songti SC", serif; font-size: clamp(40px, 7vw, 76px); line-height: 1.08; margin: 12px 0 6px; font-weight: 700; }
+h1 em { font-style: normal; color: var(--green); }
+.lead { color: var(--ink2); font-size: 18px; max-width: 760px; }
+.chips { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 0; padding: 0; list-style: none; }
+.chips li { border: 1px solid var(--line); background: var(--card); border-radius: 999px; padding: 6px 14px; font-size: 14px; color: var(--ink2); }
+.flash { display: grid; grid-template-columns: 1.15fr .85fr; gap: 22px; margin: 40px 0 10px; align-items: start; }
+.card { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 26px 28px; box-shadow: 0 1px 0 rgba(30, 28, 24, .03); }
+.card h2 { margin: 0 0 6px; font-size: 23px; font-family: "Noto Serif SC", "Songti SC", serif; }
+.card p.sub { margin: 0 0 18px; color: var(--ink2); font-size: 15px; }
+button.flash-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  border: none; cursor: pointer; font-size: 17px; font-weight: 700;
+  color: #f8f5ec; background: var(--green); border-radius: 999px;
+  padding: 14px 30px; box-shadow: 0 6px 18px rgba(46, 90, 69, .22);
+  font-family: inherit;
+}
+button.flash-btn:hover { background: #35684f; }
+button.flash-btn:disabled { background: #9aa89f; cursor: not-allowed; }
+esp-web-install-button { display: inline-block; }
+.unsupported, .not-allowed { display: block; margin-top: 14px; padding: 12px 14px; border-radius: 12px; background: #fbeee6; color: #8a4a22; font-size: 14px; }
+.hint { color: var(--ink3); font-size: 13px; margin-top: 14px; }
+.steps { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+.steps li { position: relative; padding: 0 0 16px 40px; font-size: 15px; color: var(--ink2); }
+.steps li::before {
+  counter-increment: step; content: counter(step);
+  position: absolute; left: 0; top: 2px; width: 26px; height: 26px; border-radius: 50%;
+  background: var(--green); color: #f8f5ec; font-size: 13px; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+}
+.steps strong { color: var(--ink); }
+.req { list-style: none; margin: 18px 0 0; padding: 16px 0 0; border-top: 1px dashed var(--line); font-size: 14px; color: var(--ink2); }
+.req li { position: relative; padding-left: 18px; margin: 6px 0; }
+.req li::before { content: ""; position: absolute; left: 2px; top: 10px; width: 6px; height: 6px; border-radius: 50%; background: var(--green); }
+table.meta { width: 100%; border-collapse: collapse; font-size: 14px; }
+table.meta th { text-align: left; color: var(--ink3); font-weight: 500; padding: 7px 0; width: 34%; }
+table.meta td { padding: 7px 0; color: var(--ink); word-break: break-all; }
+table.meta td code { font-size: 12px; line-height: 1.5; }
+section { padding: 56px 0; border-top: 1px solid var(--line); }
+section h2 { font-family: "Noto Serif SC", "Songti SC", serif; font-size: clamp(26px, 4vw, 38px); margin: 0 0 8px; }
+section p.section-lead { color: var(--ink2); margin: 0 0 28px; max-width: 760px; }
+.grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; }
+.feature { background: var(--card); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; }
+.feature h3 { margin: 0 0 8px; font-size: 19px; }
+.feature h3 span { color: var(--rust); font-size: 13px; font-weight: 500; margin-left: 8px; }
+.feature ul { margin: 0; padding-left: 18px; color: var(--ink2); font-size: 14.5px; }
+.feature li { margin: 4px 0; }
+.gallery { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 18px; margin-top: 26px; }
+.gallery img { width: 100%; height: auto; border-radius: 14px; border: 1px solid var(--line); background: #fff; }
+.downloads { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.dl { display: flex; flex-direction: column; gap: 2px; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 18px; border-bottom-width: 1px; }
+.dl b { font-size: 15.5px; }
+.dl small { color: var(--ink3); }
+details { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 20px; margin-bottom: 12px; }
+details summary { cursor: pointer; font-weight: 600; }
+details p { color: var(--ink2); margin: 10px 0 0; font-size: 14.5px; }
+footer { padding: 34px 0 48px; color: var(--ink3); font-size: 13px; border-top: 1px solid var(--line); }
+footer p { margin: 4px 0; }
+@media (max-width: 860px) {
+  .flash, .grid, .gallery, .downloads { grid-template-columns: 1fr; }
+  nav { display: none; }
+  .hero { padding-top: 40px; }
+}

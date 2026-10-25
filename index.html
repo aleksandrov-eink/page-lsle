@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>页屿 PageIsle · 刷机与功能介绍</title>
+<meta name="description" content="页屿 PageIsle 墨水屏阅读器固件：浏览器一键刷机（USB 有线），支持坚果云同步、Markdown 阅读、Obsidian 互通与手势配置。">
+<meta name="theme-color" content="#f6f2e7">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <div class="brand">页屿 <span>PageIsle</span></div>
+    <nav>
+      <a href="#flash">刷机</a>
+      <a href="#features">功能介绍</a>
+      <a href="#downloads">下载</a>
+      <a href="#faq">常见问题</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" id="top">
+    <p class="eyebrow">E-INK READER · RDP-G01-W · ESP32-S3</p>
+    <h1>页屿 <em>PageIsle</em></h1>
+    <p class="lead">为 684×1216 电子墨水屏打磨的阅读系统：坚果云同步、Markdown 排版阅读、Obsidian 互通、可配置手势。用一根 USB 线，在浏览器里直接刷入。</p>
+    <ul class="chips">
+      <li>坚果云同步</li><li>Markdown 阅读</li><li>Obsidian 互通</li><li>手势配置</li>
+      <li>自适应横竖屏</li><li>四档翻页</li><li>字级划线</li><li>八个特色功能</li>
+    </ul>
+  </section>
+
+  <section class="flash" id="flash">
+    <div class="card">
+      <h2>浏览器一键刷机（USB 有线）</h2>
+      <p class="sub">用 <b>电脑版 Chrome / Edge</b>，数据线连接设备即可。无需安装驱动工具，不占用本地文件。</p>
+
+      <esp-web-install-button manifest="firmware/manifest.json">
+        <button class="flash-btn" slot="activate">连接设备并刷机</button>
+        <span class="unsupported" slot="unsupported">当前浏览器不支持 Web Serial，请改用电脑版 Chrome 或 Edge（89 及以上）。</span>
+        <span class="not-allowed" slot="not-allowed">页面必须通过 HTTPS 或 localhost 打开才能刷机。</span>
+      </esp-web-install-button>
+
+      <p class="hint">刷入后设备会自动重启。若没有自动重启，长按电源键一次即可。请先关闭占用该串口的程序（如 <code>idf.py monitor</code>、串口助手）。</p>
+      <ul class="req">
+        <li>电脑版 <b>Chrome / Edge 89+</b>（不支持 Firefox / Safari / 手机浏览器）</li>
+        <li>一根<b>能传数据</b>的 USB 线（只供电的线不行）</li>
+        <li>页面地址是 <b>HTTPS</b> 或 <b>localhost</b>（GitHub Pages 默认满足）</li>
+        <li>设备：RDP-G01-W · ESP32-S3 · 16 MB flash</li>
+      </ul>
+      <p class="hint">刷机会写入引导程序、分区表与应用镜像（与官方分区布局一致），<b>不会清空 TF 卡上的书、设置和阅读记录</b>。</p>
+    </div>
+
+    <div class="card">
+      <h2>三步刷完</h2>
+      <ol class="steps">
+        <li><strong>连接设备</strong>：用能传数据的 USB 线接到电脑，设备保持开机即可（不用按 BOOT）。</li>
+        <li><strong>点按钮选串口</strong>：在弹出的串口列表里选设备对应的那一项（常见名字带 <code>USB JTAG</code> 或 <code>USB Serial</code>）。</li>
+        <li><strong>等进度走完</strong>：写入约 3.6 MB；完成后设备重启，进入锁屏界面。之后可在「设置 → 升级和恢复 → 更新说明」里看到本版条目。</li>
+      </ol>
+
+      <h2 style="margin-top:26px">固件信息</h2>
+      <table class="meta">
+        <tr><th>系统名</th><td>页屿 PageIsle</td></tr>
+        <tr><th>版本号</th><td>0.3.3-rc99</td></tr>
+        <tr><th>应用镜像</th><td>3,644,976 字节</td></tr>
+        <tr><th>ota_0 余量</th><td>549,328 字节（13%）</td></tr>
+        <tr><th>sha256</th><td><code>9e978db8eb238565dd25c442c5ba0fca7b45efcfc59c7c8bbf51cd62b3d43ca3</code></td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="features">
+    <h2>功能介绍</h2>
+    <p class="section-lead">在原版 kiikoread 0.3.3-rc99 的基础上，这一版补上了「云 → 设备 → 回传」的闭环，以及一套真正好用的 Markdown 阅读与手势配置。</p>
+
+    <div class="grid">
+      <div class="feature">
+        <h3>坚果云同步 <span>WebDAV</span></h3>
+        <ul>
+          <li>设置 →「连接与时间」→「坚果云同步」，填账号 + 应用密码 + 同步文件夹。</li>
+          <li>浏览云盘：可逐层进子目录，只列 <code>.md / .txt / .epub</code>，显示大小与修改时间。</li>
+          <li>点文件下载到书架新分类「云同步」：带进度、可取消、重名先确认覆盖；下完自动上书架。</li>
+          <li>应用密码只做混淆存放，不进入设置备份；无网络 / 认证失败 / 目录不存在 / 空间不足都有中文提示。</li>
+        </ul>
+      </div>
+
+      <div class="feature">
+        <h3>Markdown 阅读 <span>离线排版</span></h3>
+        <ul>
+          <li>书架与文件管理直接打开 <code>.md / .markdown</code>，与 TXT / EPUB 共用面板、目录、书签、划线、统计与进度。</li>
+          <li>标题 H1–H6 分级字号、段落、列表、引用、围栏代码块、分隔线；粗体 / 斜体 / 高亮 / 行内代码 / 链接 / 图片占位。</li>
+          <li>标准管道表格：按正文宽、字号、字距计算列宽，单元格内自动折行，像素级列对齐。</li>
+          <li>章节标题自动生成目录；改字号 / 字距 / 旋转 / 换字体后自动重新解析当前章，表格不乱。</li>
+        </ul>
+      </div>
+
+      <div class="feature">
+        <h3>Obsidian 互通 <span>双向</span></h3>
+        <ul>
+          <li>拉取：浏览 vault 目录，把 <code>.md</code> 下载到设备阅读。</li>
+          <li>导出：把一本书的划线、笔记、标签生成 Obsidian 友好 Markdown（front matter + 引用摘录 + 位置 + 标签），PUT 回同步文件夹。</li>
+          <li>配合 Obsidian 端的 Send-to-E-ink 类插件，就是「笔记发到坚果云 → 设备下载阅读」的完整链路。</li>
+          <li>不涉及官方 Obsidian Sync 的私有加密协议。</li>
+        </ul>
+      </div>
+
+      <div class="feature">
+        <h3>手势配置 <span>7 槽位 × 9 动作</span></h3>
+        <ul>
+          <li>阅读工具栏 →「按键控制」→「手势设置」；双击中间 / 长按正文 / 上滑 / 下滑 / 左滑 / 右滑 / 双指轻点 逐个绑定动作。</li>
+          <li>动作：上一页 / 下一页 / 工具栏 / 全屏 / 返回主页 / 手动全刷 / 打开目录 / 划线 / 不操作。</li>
+          <li>四套推荐：经典 / 上下翻页 / 单手 / 极简，可一键套用；也能全自定义，逐槽位保存。</li>
+          <li>「经典」与旧版行为逐格一致；长按的「划线 / 目录」开关在「划线」页右上角。</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="gallery">
+      <img src="assets/fun-00-header.png" alt="页屿 PageIsle 头图">
+      <img src="assets/fun-01-added.png" alt="新增功能清单">
+      <img src="assets/fun-02-optimized.png" alt="优化清单">
+      <img src="assets/fun-03-removed.png" alt="删去内容清单">
+    </div>
+  </section>
+
+  <section id="more">
+    <h2>这一版原有的能力</h2>
+    <p class="section-lead">自适应阅读方向、四档翻页效果、字级划线、划线笔记与标签、繁简两态与自定义字体、反色三态、极简时钟锁屏、五栏导航、八个特色功能、书架搜索与封面加速、阅读统计与章节跳转等，全部保留。</p>
+    <ul class="chips">
+      <li>自适应横竖屏</li><li>普通/水波纹 · 快刷/高清</li><li>字级划线</li><li>划线笔记 + 标签</li>
+      <li>繁简两态</li><li>自定义系统字体</li><li>反色三态</li><li>极简时钟锁屏</li>
+      <li>五栏底栏</li><li>八个特色功能</li><li>书架搜索</li><li>阅读统计</li>
+      <li>章节内跳转</li><li>USB 读卡</li><li>WiFi 传书</li><li>OTA 升级</li>
+    </ul>
+  </section>
+
+  <section id="downloads">
+    <h2>下载</h2>
+    <p class="section-lead">不想用浏览器刷机？直接下载镜像，用 TF 卡本地升级（设置 → 升级和恢复 → 系统升级）。</p>
+    <div class="downloads">
+      <a class="dl" href="firmware/Pico-update.bin" download>
+        <b>Pico-update.bin</b>
+        <small>TF 卡升级镜像 · 3,644,976 字节 · 放 TF 卡根目录</small>
+      </a>
+      <a class="dl" href="docs/使用说明.txt" download>
+        <b>使用说明.txt</b>
+        <small>本版新增内容、刷写方式与注意事项</small>
+      </a>
+      <a class="dl" href="docs/改版日志与刷机指南.md" download>
+        <b>改版日志与刷机指南.md</b>
+        <small>相对官方 0.3.3-rc99 的完整改动清单</small>
+      </a>
+      <a class="dl" href="docs/变更清单-从原始版到最终版.md" download>
+        <b>变更清单.md</b>
+        <small>新增 / 删除 / 优化 / 修复 分类汇总</small>
+      </a>
+      <a class="dl" href="firmware/SHA256SUMS.txt" download>
+        <b>SHA256SUMS.txt</b>
+        <small>四个分区镜像与 TF 卡镜像的校验值</small>
+      </a>
+      <a class="dl" href="firmware/manifest.json" download>
+        <b>manifest.json</b>
+        <small>刷机清单（ESP Web Tools 格式）</small>
+      </a>
+    </div>
+
+    <h2 style="margin-top:40px">命令行刷写（可选）</h2>
+    <p class="section-lead">装好 Python 与 esptool 后，也可以下载 <code>firmware/</code> 里的四个 bin 手动刷：</p>
+<pre><code>python -m esptool --chip esp32s3 --port COM3 --baud 460800 \
+  write-flash 0x0 bootloader.bin 0x8000 partitions.bin \
+  0x10000 firmware.bin 0xd10000 ota_data_initial.bin</code></pre>
+    <p class="hint">不要加 <code>--erase-all</code>：会清空设置与阅读记录。分区表与引导程序与官方一致，升级不必整片擦除。</p>
+  </section>
+
+  <section id="faq">
+    <h2>常见问题</h2>
+    <details>
+      <summary>点按钮没有反应 / 提示不支持</summary>
+      <p>Web Serial 只在电脑版 Chrome、Edge（89+）以及 localhost / HTTPS 页面可用；Firefox、Safari、微信内置浏览器、手机浏览器都不支持。请把页面放在 https 地址（例如 GitHub Pages）或本机 <code>python -m http.server</code> 的 localhost 上打开。</p>
+    </details>
+    <details>
+      <summary>串口列表里找不到设备</summary>
+      <p>先在系统设备管理器里确认能看到 <code>USB JTAG/serial debug unit</code>（或 COM 口）；换一根能传数据的 USB 线；确认设备已开机。Windows 上个别机器需要允许浏览器访问串口设备。</p>
+    </details>
+    <details>
+      <summary>刷机会不会清空我的书和设置？</summary>
+      <p>不会。刷写只覆盖引导程序、分区表、应用镜像和 OTA 元数据；书架文件在 TF 卡上，设置与阅读记录在 NVS 数据分区，都不会被清掉。除非你额外勾选了「擦除整片 Flash」。</p>
+    </details>
+    <details>
+      <summary>提示串口被占用 / 打不开端口</summary>
+      <p>先关掉可能占用同一个串口的程序：<code>idf.py monitor</code>、串口助手、Arduino IDE 串口监视器、厂商刷机工具等，等几秒再点刷机。同一个浏览器标签页里重复刷机时，先让上一次连接断开（拔插一次数据线也可以）。</p>
+    </details>
+    <details>
+      <summary>Windows 上需要装驱动吗？</summary>
+      <p>设备是 ESP32-S3 的 USB-Serial-JTAG，Windows 10/11 会自动装好 <code>usbser</code>，一般不需要额外驱动。如果设备管理器里是黄色感叹号，重新插拔一次或换一个 USB 口（不要用只供电的集线器）。</p>
+    </details>
+    <details>
+      <summary>怎么确认刷进去了、是这一版？</summary>
+      <p>刷完开机后：设置 → 升级和恢复 → 更新说明，顶部新增了「坚果云同步 / Markdown / 手势」等条目；设置 → 连接与时间里能看到「坚果云同步」这一行。也可以对照本页的 sha256 与 TF 卡镜像校验值。</p>
+    </details>
+    <details>
+      <summary>刷到一半失败 / 断线了怎么办</summary>
+      <p>设备此时停在引导模式，重新连接再刷一次即可；重复刷同一份固件没有副作用。若设备反复重启，用 TF 卡升级方式兜底。</p>
+    </details>
+    <details>
+      <summary>怎么回退到上一版？</summary>
+      <p>和刷机一样：把上一版的 <code>.bin</code> 放 TF 卡根目录用本地升级，或用本页的刷机按钮刷入上一版镜像。分区布局没有变，回退不需要改引导程序。</p>
+    </details>
+    <details>
+      <summary>Markdown 里的图片为什么不显示？</summary>
+      <p>这一版 Markdown 只排版文字与结构，图片引用会显示成 <code>[图] alt</code> 占位；Obsidian 插件附带的 <code>attachments/</code> 目录也不会被下载。图文混排仍在 EPUB 阅读里完整支持。</p>
+    </details>
+  </section>
+
+  <section id="about">
+    <h2>关于这个页面</h2>
+    <p class="section-lead">本页是纯静态站点，可以整份放进 GitHub Pages：刷机能力来自开源的 <a href="https://github.com/esphome/esp-web-tools" target="_blank" rel="noopener">esp-web-tools</a>（Apache-2.0，本仓库内已内置，不依赖任何 CDN）。页面本身不收集任何数据，串口通信只在你的浏览器与设备之间发生。</p>
+    <p class="section-lead">固件基于上游 <b>kiikoread 0.3.3-rc99</b> 做应用层定制，分区表、引导程序、OTA 元数据布局与官方一致，未改动。固件按 Apache-2.0 发布；图标来自 Lucide（ISC）。刷机有风险，请自行确认版本与设备型号（RDP-G01-W / ESP32-S3 / 16 MB flash）。</p>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 3,644,976 字节 · sha256 9e978db8eb238565…d43ca3</p>
+    <p>页面与固件由 mindreset 构建；esp-web-tools 与 esptool-js © Espressif Systems，Apache-2.0。</p>
+    <p>这不是 GitHub 官方页面；请以仓库里的固件与校验值为准。</p>
+  </div>
+</footer>
+
+<script type="module" src="web-flasher/install-button.js"></script>
+<script>
+// 复制 sha256：右上角小按钮的替代，点哈希即可复制。
+document.querySelectorAll('code').forEach(function (el) {
+  el.style.cursor = 'copy';
+  el.title = '点击复制';
+  el.addEventListener('click', function () {
+    if (!navigator.clipboard) return;
+    navigator.clipboard.writeText(el.textContent || '').then(function () {
+      var old = el.textContent;
+      el.textContent = '已复制';
+      setTimeout(function () { el.textContent = old; }, 900);
+    });
+  });
+});
+</script>
+</body>
+</html>
