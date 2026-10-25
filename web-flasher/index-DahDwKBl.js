@@ -19,43 +19,35 @@ import{z as e,i as t,_ as o,s as i,x as l,t as n,y as s}from"./styles-DxQ8Z_rh.j
   </svg>
 `;let r=class extends i{render(){const e=(()=>{var e,t;const o=window.navigator.userAgent,i=(null===(t=null===(e=window.navigator)||void 0===e?void 0:e.userAgentData)||void 0===t?void 0:t.platform)||window.navigator.platform;return-1!==["macOS","Macintosh","MacIntel","MacPPC","Mac68K"].indexOf(i)?"Mac OS":-1!==["iPhone","iPad","iPod"].indexOf(i)?"iOS":-1!==["Win32","Win64","Windows","WinCE"].indexOf(i)?"Windows":/Android/.test(o)?"Android":/Linux/.test(i)?"Linux":null})();return l`
       <ew-dialog open @closed=${this._handleClose}>
-        <div slot="headline">No port selected</div>
+        <div slot="headline">没有选择串口</div>
         <div slot="content">
           <div>
-            If you didn't select a port because you didn't see your device
-            listed, try the following steps:
+            如果没有看到你的设备、因此没有选择串口，请依次检查：
           </div>
           <ol>
             <li>
-              Make sure that the device is connected to this computer (the one
-              that runs the browser that shows this website)
+              确认设备已连接到这台电脑（也就是运行浏览器、打开本页的那台）
             </li>
             <li>
-              Most devices have a tiny light when it is powered on. If yours has
-              one, make sure it is on.
+              多数设备通电后有小指示灯；如果有，请确认它是亮着的。
             </li>
             <li>
-              Make sure that the USB cable you use can be used for data and is
-              not a power-only cable.
+              确认使用的 USB 线支持数据传输，不是只供电的线。
             </li>
             ${"Linux"===e?l`
                   <li>
-                    If you are using a Linux flavor, make sure that your user is
-                    part of the <code>dialout</code> group so it has permission
-                    to access the device.
+                    如果使用 Linux，请确认当前用户在 <code>dialout</code> 组里，才有权限访问设备。
                     <code class="block"
                       >sudo usermod -a -G dialout YourUserName</code
                     >
-                    You may need to log out & back in or reboot to activate the
-                    new group access.
+                    可能需要注销重新登录或重启才能生效。
                   </li>
                 `:""}
             <li>
-              Make sure you have the right drivers installed. Below are the
-              drivers for common chips used in ESP devices:
+              确认装好对应驱动。以下是 ESP 设备常见芯片的驱动：
               <ul>
                 <li>
-                  CP2102 drivers:
+                  CP2102 驱动：
                   <a
                     href="https://www.silabs.com/developers/usb-to-uart-bridge-vcp-drivers"
                     target="_blank"
@@ -64,7 +56,7 @@ import{z as e,i as t,_ as o,s as i,x as l,t as n,y as s}from"./styles-DxQ8Z_rh.j
                   >
                 </li>
                 <li>
-                  CH342, CH343, CH9102 drivers:
+                  CH342 / CH343 / CH9102 驱动：
                   <a
                     href="https://www.wch.cn/downloads/CH343SER_ZIP.html"
                     target="_blank"
@@ -78,10 +70,10 @@ import{z as e,i as t,_ as o,s as i,x as l,t as n,y as s}from"./styles-DxQ8Z_rh.j
                     >Mac</a
                   >
                   <br />
-                  (download via blue button with ${a} icon)
+                  （点带 ${a} 图标的蓝色按钮下载）
                 </li>
                 <li>
-                  CH340, CH341 drivers:
+                  CH340 / CH341 驱动：
                   <a
                     href="https://www.wch.cn/downloads/CH341SER_ZIP.html"
                     target="_blank"
@@ -95,7 +87,7 @@ import{z as e,i as t,_ as o,s as i,x as l,t as n,y as s}from"./styles-DxQ8Z_rh.j
                     >Mac</a
                   >
                   <br />
-                  (download via blue button with ${a} icon)
+                  （点带 ${a} 图标的蓝色按钮下载）
                 </li>
               </ul>
             </li>
@@ -103,12 +95,10 @@ import{z as e,i as t,_ as o,s as i,x as l,t as n,y as s}from"./styles-DxQ8Z_rh.j
         </div>
         <div slot="actions">
           ${this.doTryAgain?l`
-                <ew-text-button @click=${this.close}>Cancel</ew-text-button>
-                <ew-text-button @click=${this.tryAgain}>
-                  Try Again
-                </ew-text-button>
+                <ew-text-button @click=${this.close}>取消</ew-text-button>
+                <ew-text-button @click=${this.tryAgain}>重试</ew-text-button>
               `:l`
-                <ew-text-button @click=${this.close}>Close</ew-text-button>
+                <ew-text-button @click=${this.close}>关闭</ew-text-button>
               `}
         </div>
       </ew-dialog>

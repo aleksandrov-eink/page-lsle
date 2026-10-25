@@ -60,12 +60,26 @@ python -m http.server 8000
 
 - `index.html` 里的 `<esp-web-install-button manifest="firmware/manifest.json">` 是 esp-web-tools 的自定义元素；
 - 点击后：请求串口 → 探测芯片（必须 ESP32-S3）→ 写 `manifest.json` 里四个 part（各自偏移）→ 复位；
-- `new_install_prompt_erase: false`：默认不提示整片擦除，避免误清 NVS 里的设置；
-- 不需要驱动或本地工具；设备端口是 USB-Serial-JTAG 时，esp-web-tools 会自动用对应的复位方式。
+- **`new_install_prompt_erase: true` 必须保持为 true**：esp-web-tools 的语义是
+  「true = 弹窗询问（复选框默认不勾选）；false = 不询问、直接整片擦除」。
+  早期本站点误写成 false，导致安装流程静默执行 `ESP_ERASE_FLASH`，
+  把 NVS（设置、阅读进度、阅读统计）和内部 FAT 分区一并擦掉。改成 true 后，
+  弹窗里保持 Erase device 不勾选、直接点 Next 即为“只写分区、不擦数据”；
+- 页面上的确认复选框只是本地开关（未勾选时刷机按钮禁用），不参与协议；
+- 不需要驱动或本地工具；设备端口是 USB-Serial-JTAG 时，esp-web-tools 会自动用对应的复位方式；
+- **日常固件更新建议走 TF 卡本地升级**（设置 → 升级和恢复 → 系统升级），完全不擦除，风险最低。
 
-## 五、许可与出处
+## 五、界面语言
+
+`web-flasher/` 里的厂商构建已做**中文化**：按钮（下一步 / 返回 / 跳过 / 关闭 / 重试 / 连接）、
+标题（确认刷机 / 正在刷写 / 刷机完成 / 刷机失败 / 出错了）、进度（正在准备 / 正在擦除 / 正在写入 N%）、
+擦除确认页、以及“没有选择串口”帮助页全部为中文。`localize_ewt.py` 是生成脚本，
+改文案后重跑它并重新生成本站点即可。原 bundle 里剩余的英文只出现在串口日志（开发信息）中。
+
+## 六、许可与出处
 
 - 固件：基于上游 kiikoread 0.3.3-rc99 的应用层定制，Apache-2.0；
-- 刷机组件：esp-web-tools / esptool-js，© Espressif Systems，Apache-2.0（`web-flasher/` 内为未修改的官方构建产物）；
+- 刷机组件：esp-web-tools / esptool-js，© Espressif Systems，Apache-2.0
+  （`web-flasher/` 为官方构建的本地副本，仅做了界面文案中文化，见 `THIRD_PARTY_NOTICES.md`）；
 - 图标：Lucide（ISC）；
 - 站点本身可自由修改与再发布，保留出处即可。

@@ -1,7 +1,7 @@
 {
   "name": "页屿 PageIsle",
   "version": "0.3.3-rc99",
-  "new_install_prompt_erase": false,
+  "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
