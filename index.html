@@ -27,7 +27,7 @@
 
   <section class="hero" id="top">
     <p class="eyebrow">E-INK READER · RDP-G01-W · ESP32-S3</p>
-    <h1>页屿 <em>PageIsle</em></h1>
+    <h1 id="brand" title="页屿 PageIsle">页屿 <em>PageIsle</em></h1>
     <p class="lead">为 684×1216 电子墨水屏打磨的阅读系统：坚果云同步、Markdown 排版阅读、Obsidian 互通、可配置手势。用一根 USB 线，在浏览器里直接刷入。</p>
     <ul class="chips">
       <li>坚果云同步</li><li>Markdown 阅读</li><li>Obsidian 互通</li><li>手势配置</li>
@@ -485,7 +485,7 @@
 
 <footer>
   <div class="wrap">
-    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 3,968,128 字节 · sha256 61627d8c9aa1872c…2f96f6</p>
+    <p>页屿系统 1.1.0 · 2026-10-25 ｜ 页屿 PageIsle · 0.3.3-rc99 · 镜像 3,968,128 字节 · sha256 61627d8c9aa1872c…2f96f6</p>
     <p>页面与固件由 mindreset 构建；esp-web-tools 与 esptool-js © Espressif Systems，Apache-2.0。</p>
     <p>代码仓库：<a href="https://github.com/aleksandrov-eink/pageisle" target="_blank" rel="noopener">github.com/aleksandrov-eink/pageisle</a> · 以仓库里的固件与校验值为准。</p>
   </div>
@@ -517,6 +517,29 @@ document.querySelectorAll('code').forEach(function (el) {
     });
   });
 });
+</script>
+<script>
+// 隐藏内测通道：在首页连续点击 5 次「页屿 PageIsle」标志显示出来。
+(function () {
+  var logo = document.getElementById('brand');
+  if (!logo) return;
+  var clicks = 0, timer = 0;
+  logo.style.cursor = 'pointer';
+  logo.addEventListener('click', function () {
+    clicks += 1;
+    clearTimeout(timer);
+    timer = setTimeout(function () { clicks = 0; }, 2500);
+    if (clicks >= 5) {
+      clicks = 0;
+      var beta = document.getElementById('beta');
+      if (beta) {
+        var shown = beta.style.display !== 'none';
+        beta.style.display = shown ? 'none' : 'block';
+        if (!shown) beta.scrollIntoView({behavior: 'smooth', block: 'start'});
+      }
+    }
+  });
+})();
 </script>
 </body>
 </html>
