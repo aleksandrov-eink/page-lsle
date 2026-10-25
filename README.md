@@ -5,7 +5,7 @@
 - 在线页面：https://aleksandrov-eink.github.io/pageisle/
 - 浏览器一键刷机（USB / Web Serial）：页面上的「连接设备并刷机」
 - TF 卡本地升级镜像：`firmware/Pico-update.bin`
-- 固件信息：3,644,800 字节，sha256 `2884bb731e49f245a1975bf26184dc50795192a893ecf1eac0f52bc6d7186490`
+- 固件信息：3,644,800 字节，sha256 `607cd81770fc011fa40fb0316503da6223c92f37ef02f915fc6ce8bc659e4d3d`
 
 刷机提示：确认框里**不要勾选 “Erase device”**，直接点「下一步」，设置与阅读记录会保留。
 
