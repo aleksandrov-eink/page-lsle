@@ -10,7 +10,7 @@
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
-<div style="background:#2e5a45;color:#f6f2e7;padding:10px 16px;font-size:14px;text-align:center">内测版固件页面 · 页屿系统 1.1.0（2026-10-25） · <a style="color:#e8dcc0" href="../">回到正式版</a></div>
+<div style="background:#2e5a45;color:#f6f2e7;padding:10px 16px;font-size:14px;text-align:center">内测版固件页面 · 页屿系统 1.2.0（2026-10-25） · <a style="color:#e8dcc0" href="../">回到正式版</a></div>
 
 
 <header class="top">
@@ -84,9 +84,9 @@
       <table class="meta">
         <tr><th>系统名</th><td>页屿 PageIsle</td></tr>
         <tr><th>版本号</th><td>0.3.3-rc99</td></tr>
-        <tr><th>应用镜像</th><td>3,968,576 字节</td></tr>
-        <tr><th>ota_0 余量</th><td>225,728 字节（13%）</td></tr>
-        <tr><th>sha256</th><td><code>4a4d524ec256b81f87501a2926124d1db37c629a7f2f43f297ba95075c9da108</code></td></tr>
+        <tr><th>应用镜像</th><td>3,975,712 字节</td></tr>
+        <tr><th>ota_0 余量</th><td>218,592 字节（13%）</td></tr>
+        <tr><th>sha256</th><td><code>2297f84adc5e7b963d0f94256691f5c2c28eb1d7f6564f310ef8b1467944744f</code></td></tr>
       </table>
     </div>
   </section>
@@ -211,7 +211,7 @@
           </div>
           <p class="promo-cap">原「竖排」开关替换为自适应方向</p>
         </div>
-        <ul class="promo-list"><li>阅读设置里开关；转向后回到原来那一页，180° 也正确。</li></ul>
+        <ul class="promo-list"><li>阅读设置里开关；转向后回到原来那一页，180° 也正确。</li><li><b>横屏阅读补齐 chrome</b>：顶部状态带（时钟 / 签名 / WiFi / 蓝牙 / 电量）、非全屏时的题头带（返回 / 书名 / 收藏）与底部章节名 + 页码 / 全书% + 进度条；正文带自动内缩。</li><li>横屏每分钟只刷状态带，不再整屏闪；横竖屏切换按文字位置回到同一段页首。</li></ul>
       </article>
 
       <article class="promo-card">
@@ -226,7 +226,7 @@
           </div>
           <p class="promo-cap">阅读设置 → 翻页效果</p>
         </div>
-        <ul class="promo-list"><li>普通·快刷恢复 GL16 差分擦除，翻页不留整页残影。</li><li><b>白天四种翻页都会在翻页后补一次白</b>：只推纯白底像素，两侧和行间的字形残影不再累积；深色模式对应补一次黑。</li></ul>
+        <ul class="promo-list"><li><b>普通·快刷 = rc100「速读黑白」</b>：纯文字页把正文阈值成纯黑白，原厂完整 DU 一次推屏，翻页更快更直接。</li><li><b>普通·高清</b>仍是整幅 GL16 擦除；<b>水波纹快刷 / 高清</b>两档不变，四档名称与选择保持原样。</li><li><b>白天四种翻页都会在翻页后补一次白</b>：只推纯白底像素，两侧和行间的字形残影不再累积；深色模式对应补一次黑。</li></ul>
       </article>
 
       <article class="promo-card">
@@ -345,18 +345,18 @@
           </div>
           <p class="promo-cap">阅读设置 / 阅读统计</p>
         </div>
-        <ul class="promo-list"><li>字级划线、首行缩进微调、阅读线、插图预读一并在内。</li><li><b>清残影：翻页内立即补一次白</b>（深色补黑）——只推纯白底、字形不动；补扫和翻页在同一次 present 内完成，不与页面/面板切换交错，退出阅读后的二三级界面、时钟锁屏不再带正文残影。</li><li><b>本版流畅性满配</b>：全组件 -O3＋热点循环展开（字体/排版/绘制/抖动/SD 读取/JPEG·PNG 解码），字形缓存 1.5 MB，两页预渲染常开，热点日志静音，指令缓存 32 KB——把约 270 KB 剩余空间全部换成速度，镜像 3,968,128 B，ota_0 仍留 226 KB 余量。</li></ul>
+        <ul class="promo-list"><li><b>阅读背景 PNG 可预览了</b>：隔行 PNG 逐行散射解码，直接写 4bpp 背景平面、省掉 831,744 B 临时内存；失败原因按格式 / 尺寸 / 内存 / 损坏分别提示。</li><li>字级划线、首行缩进微调、阅读线、插图预读一并在内。</li><li><b>清残影：翻页内立即补一次白</b>（深色补黑）——只推纯白底、字形不动；补扫和翻页在同一次 present 内完成，不与页面/面板切换交错，退出阅读后的二三级界面、时钟锁屏不再带正文残影。</li><li><b>本版流畅性满配</b>：全组件 -O3＋热点循环展开（字体/排版/绘制/抖动/SD 读取/JPEG·PNG 解码），字形缓存 1.5 MB，两页预渲染常开，热点日志静音，指令缓存 32 KB——把约 270 KB 剩余空间全部换成速度，镜像 3,975,712 B，ota_0 仍留 218 KB 余量。</li></ul>
       </article>
 
       <article class="promo-card">
         <div class="promo-no">15</div>
         <h3>启动画面统一 + 固件瘦身</h3>
-        <p class="promo-sub">小锁界面 · 4,060,368 → 3,968,128 字节</p>
+        <p class="promo-sub">小锁界面 · 4,060,368 → 3,975,712 字节</p>
         <div class="promo-shot">
           <div class="mock center">
             <div class="m-lock">🔒</div>
             <div class="m-meta2">冷启动与所有深睡唤醒统一显示小锁</div>
-            <div class="m-meta2">ota_0 余量回到 13%（226,176 字节）</div>
+            <div class="m-meta2">ota_0 余量 5%（218,592 字节）</div>
           </div>
           <p class="promo-cap">移除 415,872 字节的内嵌「准备资源」开机图</p>
         </div>
@@ -400,7 +400,7 @@
     <div class="downloads">
       <a class="dl" href="firmware/Pico-update.bin" download>
         <b>Pico-update.bin</b>
-        <small>TF 卡升级镜像 · 3,968,576 字节 · 放 TF 卡根目录</small>
+        <small>TF 卡升级镜像 · 3,975,712 字节 · 放 TF 卡根目录</small>
       </a>
       <a class="dl" href="docs/使用说明.txt" download>
         <b>使用说明.txt</b>
@@ -487,7 +487,7 @@
 
 <footer>
   <div class="wrap">
-    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 3,968,576 字节 · sha256 4a4d524ec256b81f…9da108</p>
+    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 3,975,712 字节 · sha256 2297f84adc5e7b96…44744f</p>
     <p>页面与固件由 mindreset 构建；esp-web-tools 与 esptool-js © Espressif Systems，Apache-2.0。</p>
     <p>代码仓库：<a href="https://github.com/aleksandrov-eink/pageisle" target="_blank" rel="noopener">github.com/aleksandrov-eink/pageisle</a> · 以仓库里的固件与校验值为准。</p>
   </div>
