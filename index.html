@@ -82,9 +82,9 @@
       <table class="meta">
         <tr><th>系统名</th><td>页屿 PageIsle</td></tr>
         <tr><th>版本号</th><td>0.3.3-rc99</td></tr>
-        <tr><th>应用镜像</th><td>3,968,048 字节</td></tr>
-        <tr><th>ota_0 余量</th><td>226,256 字节（13%）</td></tr>
-        <tr><th>sha256</th><td><code>d42fc49272b6f8622413ebc063d2fc92f17113d2ec82e71d5581bd211cf78420</code></td></tr>
+        <tr><th>应用镜像</th><td>3,968,240 字节</td></tr>
+        <tr><th>ota_0 余量</th><td>226,064 字节（13%）</td></tr>
+        <tr><th>sha256</th><td><code>384f623fd0b2e8fa2fce16a8bcb10464e5ae84c87bbdc7daa0e7c52908162dac</code></td></tr>
       </table>
     </div>
   </section>
@@ -343,18 +343,18 @@
           </div>
           <p class="promo-cap">阅读设置 / 阅读统计</p>
         </div>
-        <ul class="promo-list"><li>字级划线、首行缩进微调、阅读线、插图预读一并在内。</li><li><b>本版流畅性满配</b>：全组件 -O3＋热点循环展开（字体/排版/绘制/抖动/SD 读取/JPEG·PNG 解码），字形缓存 1.5 MB，两页预渲染常开，热点日志静音，指令缓存 32 KB——把约 270 KB 剩余空间全部换成速度，镜像 3,968,048 B，ota_0 仍留 226 KB 余量。</li></ul>
+        <ul class="promo-list"><li>字级划线、首行缩进微调、阅读线、插图预读一并在内。</li><li><b>清残影＝原版 rc99 翻页算法</b>：翻页波形自身擦除 + 周期全刷先完成，推屏约 8 ms 后再补一次白（深色补黑），只推纯白底、字形不动；既不多等，也更干净。</li><li><b>本版流畅性满配</b>：全组件 -O3＋热点循环展开（字体/排版/绘制/抖动/SD 读取/JPEG·PNG 解码），字形缓存 1.5 MB，两页预渲染常开，热点日志静音，指令缓存 32 KB——把约 270 KB 剩余空间全部换成速度，镜像 3,968,240 B，ota_0 仍留 226 KB 余量。</li></ul>
       </article>
 
       <article class="promo-card">
         <div class="promo-no">15</div>
         <h3>启动画面统一 + 固件瘦身</h3>
-        <p class="promo-sub">小锁界面 · 4,060,368 → 3,968,048 字节</p>
+        <p class="promo-sub">小锁界面 · 4,060,368 → 3,968,240 字节</p>
         <div class="promo-shot">
           <div class="mock center">
             <div class="m-lock">🔒</div>
             <div class="m-meta2">冷启动与所有深睡唤醒统一显示小锁</div>
-            <div class="m-meta2">ota_0 余量回到 13%（226,256 字节）</div>
+            <div class="m-meta2">ota_0 余量回到 13%（226,064 字节）</div>
           </div>
           <p class="promo-cap">移除 415,872 字节的内嵌「准备资源」开机图</p>
         </div>
@@ -398,7 +398,7 @@
     <div class="downloads">
       <a class="dl" href="firmware/Pico-update.bin" download>
         <b>Pico-update.bin</b>
-        <small>TF 卡升级镜像 · 3,968,048 字节 · 放 TF 卡根目录</small>
+        <small>TF 卡升级镜像 · 3,968,240 字节 · 放 TF 卡根目录</small>
       </a>
       <a class="dl" href="docs/使用说明.txt" download>
         <b>使用说明.txt</b>
@@ -485,7 +485,7 @@
 
 <footer>
   <div class="wrap">
-    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 3,968,048 字节 · sha256 d42fc49272b6f862…f78420</p>
+    <p>页屿 PageIsle · 0.3.3-rc99 · 镜像 3,968,240 字节 · sha256 384f623fd0b2e8fa…162dac</p>
     <p>页面与固件由 mindreset 构建；esp-web-tools 与 esptool-js © Espressif Systems，Apache-2.0。</p>
     <p>代码仓库：<a href="https://github.com/aleksandrov-eink/pageisle" target="_blank" rel="noopener">github.com/aleksandrov-eink/pageisle</a> · 以仓库里的固件与校验值为准。</p>
   </div>
