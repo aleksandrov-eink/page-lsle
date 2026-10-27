@@ -1,11 +1,19 @@
 {
   "name": "页屿 PageIsle 内测版 1.15.21",
   "version": "0.3.3-rc99",
-  "new_install_prompt_erase": false,
+  "new_install_prompt_erase": true,
   "builds": [
     {
       "chipFamily": "ESP32-S3",
       "parts": [
+        {
+          "path": "bootloader.bin",
+          "offset": 0
+        },
+        {
+          "path": "partitions.bin",
+          "offset": 32768
+        },
         {
           "path": "firmware.bin",
           "offset": 65536
